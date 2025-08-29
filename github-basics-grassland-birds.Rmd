@@ -1,0 +1,171 @@
+---
+title: "Surveying Grassland Birds in Tennessee"
+author: "Brianna Saylor"
+date: "`r Sys.Date()`"
+output: html_document
+wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(tidyverse)  #importing, tidying, plotting data
+library(knitr)      #making tables
+library(leaflet)
+library(hexbin)
+library(tidyr)
+species <- read.csv("data/Species_09July.csv")
+veg <- read.csv("data/Vegetation_09July.csv")
+sites <- read.csv("data/sites-surveyed-size.csv")
+```
+
+## **Where Did We Survey**
+
+Surveys were conducted on public lands across the state of Tennessee. Sites were identified as potential grassland bird habitat at least 20 ha in size using the National Land Cover Database Categories of cultivated crops, hay/pasture, and herbaceous. In all, we surveyed `r nrow(sites)` sites across Tennessee. <br>
+
+```{r sites table code, echo=TRUE, message=FALSE, warning=FALSE} 
+summary_site_size <- sites %>% 
+  summarise( 
+    across(c(Hectares, AP_Ratio), 
+           list(
+             min = min,
+             max = max,
+             mean = mean, 
+             median = median))) %>% 
+  pivot_longer( 
+    cols = everything(), 
+    names_to = "stat")
+    
+kable(summary_site_size, caption = "Table 1. A summary of the site size and shape of sites surveyed. The size is in hectares. The ap_ratio refers to the perimeter-area ratio and is a mesuare of the core usable habitat.", digits = 2) 
+```
+<br>
+
+```{r map, echo=FALSE, fig.align='center', message=FALSE, warning=FALSE}
+leaflet() %>% 
+  setView(-86.2149341, 35.8833283, zoom = 7) %>%
+  addTiles() %>% 
+  addMarkers(-85.9710888, 35.4853265) %>%
+  addMarkers(-84.9816484, 36.1210776) %>% 
+  addMarkers(-84.9908274, 36.1166197) %>% 
+  addMarkers(-85.2614694, 35.8758193) %>% 
+  addMarkers(-89.5245700, 36.2004441) %>% 
+  addMarkers(-89.5153455, 36.2017632) %>% 
+  addMarkers(-89.4686164, 36.1342657) %>% 
+  addMarkers(-88.3368362, 35.3563379) %>% 
+  addMarkers(-83.6902408,35.9527390) %>% 
+  addMarkers(-83.6874979, 35.9416968) %>% 
+  addMarkers(-89.9076729, 35.6796629) %>% 
+  addMarkers(-89.5652072, 35.8591219) %>% 
+  addMarkers(-86.9236689, 36.1531522) %>% 
+  addMarkers(-87.2714927, 36.6160801) %>% 
+  addMarkers(-85.9729431, 35.4809029) %>% 
+  addMarkers(-89.2861640, 35.0251779) %>% 
+  addMarkers(-87.4922350, 36.4565078) %>% 
+  addMarkers(-84.8338684, 35.5565985) %>% 
+  addMarkers(-84.8713839, 35.5246472) %>% 
+  addMarkers(-87.2649667, 36.3907462) %>% 
+  addMarkers(-89.2876189, 35.0133403) %>% 
+  addMarkers(-89.2921990, 35.0112392) %>% 
+  addMarkers(-84.8809746, 35.5508305) %>% 
+  addMarkers(-83.8483448, 35.9561205) %>% 
+  addMarkers(-87.4756907, 35.3820515) %>% 
+  addMarkers(-87.4849579, 35.3855991) %>% 
+  addMarkers(-84.2003645, 35.5813404) %>% 
+  addMarkers(-85.2224886, 35.1625066) %>% 
+  addMarkers(-87.3428460, 36.5624681) %>% 
+  addMarkers(-89.4803209, 36.1352324) %>% 
+  addMarkers(-89.4637019, 36.1346953) %>% 
+  addMarkers(-89.4556332, 36.1301122) %>% 
+  addMarkers(-89.4590219, 36.1420179) %>% 
+  addMarkers(-89.4647553, 36.1244628) %>% 
+  addMarkers(-87.4819622, 36.4447162) %>% 
+  addMarkers(-87.2721424, 36.4000352) %>% 
+  addMarkers(-89.5310374, 36.2008208) %>% 
+  addMarkers(-89.5401216, 36.1971207) %>%
+  addMarkers(-89.5297809, 36.1946392) %>% 
+  addMarkers(-87.8529014, 36.5086423) %>% 
+  addMarkers(-89.9016445, 35.6728364) %>% 
+  addMarkers(-85.2694630, 35.8513472) %>% 
+  addMarkers(-84.8135184, 35.5543116) %>% 
+  addMarkers(-84.8051241, 35.5501711) %>% 
+  addMarkers(-87.5746228, 35.6644542) %>% 
+  addMarkers(-87.5868129, 35.6741900)
+```
+
+<br><br>
+
+## **Number of Survey Points**
+
+[**How many points did we survey?**]{style="color:green"}
+
+We surveyed `r nrow(veg)` points between 14 May, 2025 and 01 July, 2025.
+
+Points surveyed were classified as crop, grassland, hay/pasture, savannah, or shrub. <br>
+
+```{r graph site type, echo=TRUE, fig.align='center', message=FALSE, warning=FALSE}
+veg <- group_by(veg, Site_Type)
+site <- count(veg, Site_Type)
+
+custom_colors <- c("#0072B2", "#D55E00", "#F0E442", "#CC79A7","#009E73")
+ggplot(site, aes(x = Site_Type, y = n, fill = Site_Type)) + 
+  geom_bar(stat = "identity", position = "dodge") + 
+  theme_classic() + 
+  xlab("Site Type") + 
+  ylab("Number of Points") + 
+  ggtitle("Number of Points Surveyed by Site Type") + 
+  theme(plot.title = element_text(hjust = 0.5, size = 14), 
+        axis.text.x = element_text(hjust = 0.8), 
+        axis.title.x = element_text(size = 10), 
+        axis.title.y = element_text(size = 10)) +
+  theme(legend.position = "none") + 
+  scale_fill_manual(values = custom_colors)
+
+ggsave("output/points-site-type.png")
+```
+
+<br><br>
+
+## **What did we measure?**
+
+[**Vegetation Surveys**]{style="color:green"}
+
+We conducted vegetation surveys at each point collecting data on various variables including basal area, litter depth, vegetation height, vegetation density, and percent cover. <br>
+
+```{r table vegetation data, echo=TRUE, fig.align='center'}
+kable(veg[1:10, ], caption = "Table 2. The first 10 survey points in the data set showing all of the vegetation variables measured.")
+```
+
+<br> 
+
+[**Bird Surveys**]{style="color:green"}
+
+```{r, clean up species data, echo=FALSE}
+species <- subset(species, Species != "UNHA") #remove UNHA
+```
+
+We detected a total of `r summarise(species, n_distinct(Species))` species and a total of `r sum(species$Number, na.rm = TRUE)` individuals.
+
+**What were the most common species?** <br> 
+
+The top five most common species detected were 1) Indigo Bunting, 2) Red-winged Blackbird, 3) Common Yellowthroat, 4) Field Sparrow, and 5) Great Egret. <br>
+
+```{r top 20 species, echo=TRUE, fig.align='center'}
+species <- group_by(species, Species)
+all_table <- summarise(species,
+          total_all = sum(Number, na.rm = TRUE))
+all_table <- arrange(all_table, desc(total_all))
+all_table_20 <- head(all_table, 20)
+
+ggplot(all_table_20, aes(x = reorder(Species, -total_all), y = total_all)) + 
+  geom_bar(stat = "identity", position = "dodge", fill = "#0072B2") + 
+  theme_classic() + 
+  ylab("Number or Individuals") +
+  xlab("Species") + 
+  ggtitle("Top 20 Species Including Flyovers") + 
+  theme(plot.title = element_text(hjust = 0.5, size = 18), 
+        axis.text.x = element_text(size = 7))
+
+ggsave("output/all-species-top-20.png")
+```
+
