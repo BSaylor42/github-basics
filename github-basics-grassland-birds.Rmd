@@ -41,6 +41,18 @@ kable(summary_site_size, caption = "Table 1. A summary of the site size and shap
 ```
 <br>
 
+```{r work map, echo=FALSE, fig.align='center', message=FALSE, warning=FALSE}
+green_icon <- awesomeIcons()
+leaflet() %>% 
+  setView(-86.2149341, 35.8833283, zoom = 7) %>%
+  addTiles() %>% 
+  addAwesomeMarkers(
+    lng = -85.9710888, lat = 35.4853265,
+    icon = awesomeIcons(icon = "star", iconColor = "white", markerColor = "green"))
+
+```
+
+
 ```{r map, echo=FALSE, fig.align='center', message=FALSE, warning=FALSE}
 leaflet() %>% 
   setView(-86.2149341, 35.8833283, zoom = 7) %>%
