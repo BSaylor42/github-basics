@@ -24,6 +24,60 @@ sites <- read.csv("data/sites-surveyed-size.csv")
 
 Surveys were conducted on public lands across the state of Tennessee. Sites were identified as potential grassland bird habitat at least 20 ha in size using the National Land Cover Database Categories of cultivated crops, hay/pasture, and herbaceous. In all, we surveyed `r nrow(sites)` sites across Tennessee. <br>
 
+<div style="width:600px; margin: 0 auto;">
+```{r map, echo=FALSE, fig.align='center', message=FALSE, warning=FALSE}
+leaflet() %>% 
+  setView(-86.2149341, 35.8833283, zoom = 7) %>%
+  addTiles() %>% 
+  addAwesomeMarkers(-85.9710888, 35.4853265, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>%
+  addAwesomeMarkers(-84.9816484, 36.1210776, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-84.9908274, 36.1166197, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-85.2614694, 35.8758193, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.5245700, 36.2004441, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.5153455, 36.2017632, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.4686164, 36.1342657, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-88.3368362, 35.3563379, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-83.6902408,35.9527390, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-83.6874979, 35.9416968, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.9076729, 35.6796629, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.5652072, 35.8591219, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-86.9236689, 36.1531522, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.2714927, 36.6160801, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-85.9729431, 35.4809029, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.2861640, 35.0251779, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.4922350, 36.4565078, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-84.8338684, 35.5565985, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-84.8713839, 35.5246472, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.2649667, 36.3907462, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.2876189, 35.0133403, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.2921990, 35.0112392, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-84.8809746, 35.5508305, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-83.8483448, 35.9561205, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.4756907, 35.3820515, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.4849579, 35.3855991, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-84.2003645, 35.5813404, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-85.2224886, 35.1625066, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.3428460, 36.5624681, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.4803209, 36.1352324, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.4637019, 36.1346953, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.4556332, 36.1301122, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.4590219, 36.1420179, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.4647553, 36.1244628, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.4819622, 36.4447162, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.2721424, 36.4000352, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.5310374, 36.2008208, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.5401216, 36.1971207, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>%
+  addAwesomeMarkers(-89.5297809, 36.1946392, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.8529014, 36.5086423, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-89.9016445, 35.6728364, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-85.2694630, 35.8513472, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-84.8135184, 35.5543116, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-84.8051241, 35.5501711, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.5746228, 35.6644542, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green")) %>% 
+  addAwesomeMarkers(-87.5868129, 35.6741900, icon = awesomeIcons(icon = "leaf", iconColor = "white", markerColor = "green"))
+```
+</div>
+<br>
 ```{r sites table code, echo=TRUE, message=FALSE, warning=FALSE} 
 summary_site_size <- sites %>% 
   summarise( 
@@ -39,72 +93,6 @@ summary_site_size <- sites %>%
     
 kable(summary_site_size, caption = "Table 1. A summary of the site size and shape of sites surveyed. The size is in hectares. The ap_ratio refers to the perimeter-area ratio and is a mesuare of the core usable habitat.", digits = 2) 
 ```
-<br>
-
-```{r work map, echo=FALSE, fig.align='center', message=FALSE, warning=FALSE}
-green_icon <- awesomeIcons()
-leaflet() %>% 
-  setView(-86.2149341, 35.8833283, zoom = 7) %>%
-  addTiles() %>% 
-  addAwesomeMarkers(
-    lng = -85.9710888, lat = 35.4853265,
-    icon = awesomeIcons(icon = "star", iconColor = "white", markerColor = "green"))
-
-```
-
-
-```{r map, echo=FALSE, fig.align='center', message=FALSE, warning=FALSE}
-leaflet() %>% 
-  setView(-86.2149341, 35.8833283, zoom = 7) %>%
-  addTiles() %>% 
-  addMarkers(-85.9710888, 35.4853265) %>%
-  addMarkers(-84.9816484, 36.1210776) %>% 
-  addMarkers(-84.9908274, 36.1166197) %>% 
-  addMarkers(-85.2614694, 35.8758193) %>% 
-  addMarkers(-89.5245700, 36.2004441) %>% 
-  addMarkers(-89.5153455, 36.2017632) %>% 
-  addMarkers(-89.4686164, 36.1342657) %>% 
-  addMarkers(-88.3368362, 35.3563379) %>% 
-  addMarkers(-83.6902408,35.9527390) %>% 
-  addMarkers(-83.6874979, 35.9416968) %>% 
-  addMarkers(-89.9076729, 35.6796629) %>% 
-  addMarkers(-89.5652072, 35.8591219) %>% 
-  addMarkers(-86.9236689, 36.1531522) %>% 
-  addMarkers(-87.2714927, 36.6160801) %>% 
-  addMarkers(-85.9729431, 35.4809029) %>% 
-  addMarkers(-89.2861640, 35.0251779) %>% 
-  addMarkers(-87.4922350, 36.4565078) %>% 
-  addMarkers(-84.8338684, 35.5565985) %>% 
-  addMarkers(-84.8713839, 35.5246472) %>% 
-  addMarkers(-87.2649667, 36.3907462) %>% 
-  addMarkers(-89.2876189, 35.0133403) %>% 
-  addMarkers(-89.2921990, 35.0112392) %>% 
-  addMarkers(-84.8809746, 35.5508305) %>% 
-  addMarkers(-83.8483448, 35.9561205) %>% 
-  addMarkers(-87.4756907, 35.3820515) %>% 
-  addMarkers(-87.4849579, 35.3855991) %>% 
-  addMarkers(-84.2003645, 35.5813404) %>% 
-  addMarkers(-85.2224886, 35.1625066) %>% 
-  addMarkers(-87.3428460, 36.5624681) %>% 
-  addMarkers(-89.4803209, 36.1352324) %>% 
-  addMarkers(-89.4637019, 36.1346953) %>% 
-  addMarkers(-89.4556332, 36.1301122) %>% 
-  addMarkers(-89.4590219, 36.1420179) %>% 
-  addMarkers(-89.4647553, 36.1244628) %>% 
-  addMarkers(-87.4819622, 36.4447162) %>% 
-  addMarkers(-87.2721424, 36.4000352) %>% 
-  addMarkers(-89.5310374, 36.2008208) %>% 
-  addMarkers(-89.5401216, 36.1971207) %>%
-  addMarkers(-89.5297809, 36.1946392) %>% 
-  addMarkers(-87.8529014, 36.5086423) %>% 
-  addMarkers(-89.9016445, 35.6728364) %>% 
-  addMarkers(-85.2694630, 35.8513472) %>% 
-  addMarkers(-84.8135184, 35.5543116) %>% 
-  addMarkers(-84.8051241, 35.5501711) %>% 
-  addMarkers(-87.5746228, 35.6644542) %>% 
-  addMarkers(-87.5868129, 35.6741900)
-```
-
 <br><br>
 
 ## **Number of Survey Points**
